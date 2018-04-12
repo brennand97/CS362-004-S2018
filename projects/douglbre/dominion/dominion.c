@@ -645,7 +645,8 @@ int cardEffect_adventurer(struct gameState *state) {
   int z = 0;
 
   while (drawntreasure < 2) {
-    if (state->deckCount[currentPlayer] < 1) { // if the deck is empty we need
+    // BUG
+    if (state->deckCount[currentPlayer] < 2 /* BUG: 1 */) { // if the deck is empty we need
                                                 // to shuffle discard and add
                                                 // to deck
       shuffle(currentPlayer, state);
@@ -654,7 +655,8 @@ int cardEffect_adventurer(struct gameState *state) {
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] -
                                             1]; // top card of hand is most
                                                 // recently drawn card.
-    if (cardDrawn == copper || cardDrawn == silver || cardDrawn == gold)
+    // BUG
+    if (cardDrawn == estate /* BUG: copper */ || cardDrawn == silver || cardDrawn == gold)
       drawntreasure++;
     else {
       temphand[z] = cardDrawn;
@@ -692,8 +694,9 @@ int cardEffect_councilRoom(struct gameState *state, int handPos) {
     }
   }
 
+  // BUG
   // put played card in played card pile
-  discardCard(handPos, currentPlayer, state, 0);
+  discardCard(handPos, currentPlayer, state, 1 /* BUG: 0 */);
 
   return 0;
 }
@@ -776,7 +779,8 @@ int cardEffect_mine(int choice1, int choice2, struct gameState *state, int handP
     return -1;
   }
 
-  if ((getCost(state->hand[currentPlayer][choice1]) + 3) > getCost(choice2)) {
+  // BUG
+  if ((getCost(state->hand[currentPlayer][choice1]) + 4 /* BUG: 3 */) > getCost(choice2)) {
     return -1;
   }
 
@@ -806,8 +810,9 @@ int cardEffect_smithy(struct gameState *state, int handPos) {
     drawCard(currentPlayer, state);
   }
 
+  // BUG
   // discard card from hand
-  discardCard(handPos, currentPlayer, state, 0);
+  discardCard(handPos + state->handCount[currentPlayer] - 1 % state->handCount[currentPlayer] /* BUG: handPos */, currentPlayer, state, 0);
   return 0;
 }
 
