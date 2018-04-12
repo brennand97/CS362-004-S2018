@@ -728,7 +728,7 @@ int cardEffect_feast(int choice, struct gameState *state) {
       printf("That card is too expensive!\n");
 
       if (DEBUG) {
-        printf("Coins: %d < %d\n", state->coins, getCost(choice1));
+        printf("Coins: %d < %d\n", state->coins, getCost(choice));
       }
     } else {
 
@@ -738,7 +738,7 @@ int cardEffect_feast(int choice, struct gameState *state) {
                                         state->discardCount[currentPlayer]);
       }
 
-      gainCard(choice1, state, 0, currentPlayer); // Gain the card
+      gainCard(choice, state, 0, currentPlayer); // Gain the card
       x = 0; // No more buying cards
 
       if (DEBUG) {
@@ -762,6 +762,7 @@ int cardEffect_feast(int choice, struct gameState *state) {
 int cardEffect_mine(int choice1, int choice2, struct gameState *state, int handPos) {
   int currentPlayer = whoseTurn(state);
   
+  int i;
   int j;
 
   j = state->hand[currentPlayer][choice1]; // store card we will trash
