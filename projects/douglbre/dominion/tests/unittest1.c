@@ -31,7 +31,7 @@ void testTail(char* name, char* indent, int failures) {
     if(failures) {
         printf("%s >>> SUCCESS (%s): All asserts were successful <<<\n", indent, name);
     } else {
-        printf("%s >>> FAILED (%s): %d of asserts failed <<<\n", indent, name, failures);
+        printf("%s >>> FAILED (%s): %d asserts failed <<<\n", indent, name, failures);
     }
     printf("|\n");
 }
@@ -57,7 +57,8 @@ void testEndTurn() {
 
     /* TEST 1 */
     failures = 0;
-    testHead("Test 1", &indent);
+    printf("|--> %s\n", "Test 1");
+    sprintf(indent, "| |-->");
 
 
 
@@ -66,7 +67,8 @@ void testEndTurn() {
 
     /* TEST 2 */
     failures = 0;
-    testHead("Test 2", &indent);
+    printf("|--> %s\n", "Test 2");
+    sprintf(indent, "| |-->");
 
     
 
@@ -77,9 +79,9 @@ void testEndTurn() {
     /* FINISHED ALL TESTS */
 
     if(t_failures) {
-        printf("|--> >>>>>> SUCCESS (%s): All tests passed <<<<<<\n", TESTFUNCTION);
+        printf("| >>>>>> SUCCESS (%s): All tests passed <<<<<<\n", TESTFUNCTION);
     } else {
-        printf("|--> >>>>>> FAILED (%s): %d tests failed <<<<<<\n", TESTFUNCTION, t_failures);
+        printf("| >>>>>> FAILED (%s): %d tests failed <<<<<<\n", TESTFUNCTION, t_failures);
     }
 
 }
