@@ -22,7 +22,7 @@ int safeAssert(int condition, char* indent, char* description) {
     }
 }
 
-void testHead(char* name, char** indent) {
+void testHead(char* name, char* indent[]) {
     printf("|--> %s\n", name);
     sprintf(*indent, "| |-->");
 }
