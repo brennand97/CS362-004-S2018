@@ -35,15 +35,31 @@ unittest1: tests/unittest1.c dominion.o rngs.o
 unittest2: tests/unittest2.c dominion.o rngs.o
 	gcc -o tests/unittest2 tests/unittest2.c dominion.o rngs.o $(CFLAGS)
 
-unittestresults.out: tests/unittest1.c tests/unittest2.c dominion.o rngs.o
+unittest3: tests/unittest3.c dominion.o rngs.o
+	gcc -o tests/unittest3 tests/unittest3.c dominion.o rngs.o $(CFLAGS)
+
+unittestresults.out: tests/unittest1.c tests/unittest2.c tests/unittest3.c dominion.o rngs.o
 	echo "Result for running Unit Tests:" > unittestresults.out	
 	echo "" >> unittestresults.out
 	gcc -o tests/unittest1 tests/unittest1.c dominion.o rngs.o $(CFLAGS)
 	tests/unittest1 >> unittestresults.out
 	gcov dominion.c -b >> unittestresults.out
+
 	echo "" >> unittestresults.out
 	gcc -o tests/unittest2 tests/unittest2.c dominion.o rngs.o $(CFLAGS)	
 	tests/unittest2 >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	gcc -o tests/unittest3 tests/unittest3.c dominion.o rngs.o $(CFLAGS)	
+	tests/unittest3 >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	echo "Total Coverage of all Tests:" >> unittestresults.out
+	tests/unittest1 > /dev/null
+	tests/unittest2 > /dev/null
+	tests/unittest3 > /dev/null
 	gcov dominion.c -b >> unittestresults.out
 
 player: player.c interface.o

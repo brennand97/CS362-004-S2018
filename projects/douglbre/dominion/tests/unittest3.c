@@ -1,5 +1,5 @@
 /*
- * unittest2.c
+ * unittest3.c
  */
 
 #include <string.h>
@@ -10,7 +10,7 @@
 #include "../dominion_helpers.h"
 #include "../rngs.h"
 
-#define TESTFUNCTION "isGameOver"
+#define TESTFUNCTION "updateCoins"
 #define NOISY 1
 
 int silent = 0;
@@ -44,7 +44,7 @@ void testTail(char* name, char* indent, int failures) {
     printf("|\n");
 }
 
-void testIsGameOver() {
+void testUpdateCoins() {
     int failures = 0, t_failures = 0;
     char buffer[100], indent[20], name[100];
 
@@ -68,15 +68,9 @@ void testIsGameOver() {
     /* -------------------- TEST 1 --------------------*/
 	strcpy(name,"Test 1");
 	failures = 0;
-    printf("|--> %s: %s\n", name, "After initilization game is not over");
+    printf("|--> %s: %s\n", name, "N/A");
     sprintf(indent, "| |-->");
 
-	// copy the game state to a test case
-	memcpy(&testG, &G, sizeof(struct gameState));
-
-	result = isGameOver(&testG);
-	sprintf(buffer, "result = %d, expected = %d", result, 0);
-	failures += safeAssert(result == 0, indent, buffer);
 
     testTail(name, "| |", failures);
     if (!failures) t_failures++;
@@ -84,20 +78,9 @@ void testIsGameOver() {
     /* -------------------- TEST 2 --------------------*/
 	strcpy(name,"Test 2");
     failures = 0;
-    printf("|--> %s: %s\n", name, "If no provinces are left the game is over");
+    printf("|--> %s: %s\n", name, "N/A");
     sprintf(indent, "| |-->");
 
-	// copy the game state to a test case
-	memcpy(&testG, &G, sizeof(struct gameState));
-
-	// set province count to zero
-	testG.supplyCount[province] = 0;
-
-	// Test function
-	result = isGameOver(&testG);
-
-	sprintf(buffer, "result = %d, expected != %d", result, 0);
-	failures += safeAssert(result != 0, indent, buffer);
 
     testTail(name, "| |", failures);
     if (!failures) t_failures++;
@@ -105,31 +88,9 @@ void testIsGameOver() {
     /* -------------------- TEST 3 --------------------*/
 	strcpy(name,"Test 3");
     failures = 0;
-    printf("|--> %s: %s\n", name, "If any three supply stacks are empty");
+    printf("|--> %s: %s\n", name, "N/A");
     sprintf(indent, "| |-->");
 
-	for (i = 0; i < 24; i++) {
-		for (j = i + 1; j < 24; j++) {
-			for (m = j + 1; m < 24; m++) {	
-				// copy the game state to a test case
-				memcpy(&testG, &G, sizeof(struct gameState));
-
-				// set supply counts to zero
-				testG.supplyCount[i] = 0;
-				testG.supplyCount[j] = 0;
-				testG.supplyCount[m] = 0;
-
-				// Test function
-				result = isGameOver(&testG);
-
-				sprintf(buffer, "result = %d, expected != %d", result, 0);
-				failures += safeAssert(result != 0, indent, buffer);
-
-				silent = 1;
-			}
-		}
-	}
-	silent = 0;
 	
 	testTail(name, "| |", failures);
     if (!failures) t_failures++;
@@ -145,6 +106,6 @@ void testIsGameOver() {
 }
 
 int main() {
-    testIsGameOver();
+    testUpdateCoins();
     return 0;
 }
