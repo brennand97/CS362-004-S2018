@@ -34,9 +34,9 @@ int safeAssert(int condition, char* indent, char* description) {
 void testTail(char* name, char* indent, int failures) {
 	printf("%s\n", indent);
     if(failures == 0) {
-        printf("%s >>> SUCCESS (%s): All asserts were successful <<<\n", indent, name);
+        printf("%s>>> SUCCESS (%s): All asserts were successful <<<\n", indent, name);
     } else {
-        printf("%s >>> FAILED (%s): %d asserts failed <<<\n", indent, name, failures);
+        printf("%s>>> FAILED (%s): %d asserts failed <<<\n", indent, name, failures);
     }
     printf("|\n");
 }
@@ -47,8 +47,6 @@ void testEndTurn() {
 
 	int i;
 
-    int handpos = 0, choice1 = 0, choice2 = 0, choice3 = 0, bonus = 0;
-    int remove1, remove2;
     int seed = 1000;
     int numPlayers = 3;
 	int currentPlayer = 0;
@@ -141,9 +139,9 @@ void testEndTurn() {
     /* -------------- FINISHED ALL TESTS --------------*/
 
     if(t_failures) {
-        printf("| >>> SUCCESS (%s): All tests passed 1<<<\n", TESTFUNCTION);
+        printf("|>>> SUCCESS (%s): All tests passed 1<<<\n", TESTFUNCTION);
     } else {
-        printf("| >>> FAILED (%s): %d tests failed <<<\n", TESTFUNCTION, t_failures);
+        printf("|>>> FAILED (%s): %d tests failed <<<\n", TESTFUNCTION, t_failures);
     }
 
 }
