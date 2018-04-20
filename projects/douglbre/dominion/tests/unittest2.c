@@ -79,7 +79,7 @@ void testIsGameOver() {
 	failures += safeAssert(result == 0, indent, buffer);
 
     testTail(name, "| |", failures);
-    if (!failures) t_failures++;
+    if (failures) t_failures++;
 
     /* -------------------- TEST 2 --------------------*/
 	strcpy(name,"Test 2");
@@ -100,7 +100,7 @@ void testIsGameOver() {
 	failures += safeAssert(result != 0, indent, buffer);
 
     testTail(name, "| |", failures);
-    if (!failures) t_failures++;
+    if (failures) t_failures++;
 
     /* -------------------- TEST 3 --------------------*/
 	strcpy(name,"Test 3");
@@ -132,11 +132,11 @@ void testIsGameOver() {
 	silent = 0;
 	
 	testTail(name, "| |", failures);
-    if (!failures) t_failures++;
+    if (failures) t_failures++;
 
     /* -------------- FINISHED ALL TESTS --------------*/
 
-    if(t_failures) {
+    if(!t_failures) {
         printf("|>>> SUCCESS (%s): All tests passed <<<\n", TESTFUNCTION);
     } else {
         printf("|>>> FAILED (%s): %d tests failed <<<\n", TESTFUNCTION, t_failures);

@@ -113,7 +113,7 @@ void testEndTurn() {
 
 
     testTail(name, "| |", failures);
-    if (!failures) t_failures++;
+    if (failures) t_failures++;
 
     /* -------------------- TEST 2 --------------------*/
     failures = 0;
@@ -133,12 +133,12 @@ void testEndTurn() {
 	}
 
     testTail("Test 2", "| |", failures);
-    if (!failures) t_failures++;
+    if (failures) t_failures++;
 
 
     /* -------------- FINISHED ALL TESTS --------------*/
 
-    if(t_failures) {
+    if(!t_failures) {
         printf("|>>> SUCCESS (%s): All tests passed 1<<<\n", TESTFUNCTION);
     } else {
         printf("|>>> FAILED (%s): %d tests failed <<<\n", TESTFUNCTION, t_failures);
