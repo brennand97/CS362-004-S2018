@@ -10,6 +10,8 @@
 #include "../dominion_helpers.h"
 #include "../rngs.h"
 
+#include "unittest1.h"
+
 #define TESTFUNCTION "endTurn"
 #define NOISY 1
 
