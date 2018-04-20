@@ -38,6 +38,12 @@ unittest2: tests/unittest2.c dominion.o rngs.o
 unittest3: tests/unittest3.c dominion.o rngs.o
 	gcc -o tests/unittest3 tests/unittest3.c dominion.o rngs.o $(CFLAGS)
 
+unittest4: tests/unittest4.c dominion.o rngs.o
+	gcc -o tests/unittest4 tests/unittest4.c dominion.o rngs.o $(CFLAGS)
+
+unittest5: tests/unittest5.c dominion.o rngs.o
+	gcc -o tests/unittest5 tests/unittest5.c dominion.o rngs.o $(CFLAGS)
+
 unittestresults.out: tests/unittest1.c tests/unittest2.c tests/unittest3.c dominion.o rngs.o
 	echo "Result for running Unit Tests:" > unittestresults.out	
 	echo "" >> unittestresults.out
@@ -56,10 +62,22 @@ unittestresults.out: tests/unittest1.c tests/unittest2.c tests/unittest3.c domin
 	gcov dominion.c -b >> unittestresults.out
 
 	echo "" >> unittestresults.out
+	gcc -o tests/unittest4 tests/unittest4.c dominion.o rngs.o $(CFLAGS)	
+	tests/unittest4 >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
+	
+	echo "" >> unittestresults.out
+	gcc -o tests/unittest5 tests/unittest5.c dominion.o rngs.o $(CFLAGS)	
+	tests/unittest5 >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
 	echo "Total Coverage of all Tests:" >> unittestresults.out
 	tests/unittest1 > /dev/null
 	tests/unittest2 > /dev/null
 	tests/unittest3 > /dev/null
+	tests/unittest4 > /dev/null
+	tests/unittest5 > /dev/null
 	gcov dominion.c -b >> unittestresults.out
 
 player: player.c interface.o
@@ -68,4 +86,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe tests/unittest1 tests/unittest2 unittestresults.out
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe tests/unittest1 tests/unittest2 tests/unittest3 tests/unittest4 tests/unittest5 unittestresults.out
