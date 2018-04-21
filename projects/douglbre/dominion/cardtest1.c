@@ -70,42 +70,138 @@ void testCard_adventurer() {
     /* -------------------- TEST 1 --------------------*/
 	strcpy(name,"Test 1");
 	failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
+    printf("|--> %s: %s\n", name, "Check that card works when deck is full of copper.");
     sprintf(indent, "| |-->");
+
+	// set the deck to a known state
+	for (i = 0; i < G.deckCount[0]; i++) {
+		if (i > 1) {
+			G.deck[0][i] = copper;
+		} else {
+			G.deck[0][i] = estate;
+		}
+	}
 
 	// set test game state
 	memcpy(&testG, &G, sizeof(struct gameState));
 
+	cardEffect(adventurer, 0, 0, 0, &testG, 0, NULL);
 
+	sprintf(buffer, "deck count = %d, expected = %d", testG.deckCount[0], G.deckCount[0] - 2);
+	failures += safeAssert(testG.deckCount[0] == G.deckCount[0] - 2, indent, buffer);
+
+	sprintf(buffer, "discard count = %d, expected = %d", testG.discardCount[0], G.discardCount[0]);
+	failures += safeAssert(testG.discardCount[0] == G.discardCount[0], indent, buffer);
+
+	sprintf(buffer, "hand count = %d, expected = %d", testG.handCount[0], G.handCount[0] + 2);
+	failures += safeAssert(testG.handCount[0] == G.handCount[0] + 2, indent, buffer);
 
     testTail(name, "| |", failures);
     if (failures) t_failures++;
 
     /* -------------------- TEST 2 --------------------*/
 	strcpy(name,"Test 2");
-    failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
+	failures = 0;
+    printf("|--> %s: %s\n", name, "Check that card works when deck is full of silver.");
     sprintf(indent, "| |-->");
+
+	// set the deck to a known state
+	for (i = 0; i < G.deckCount[0]; i++) {
+		G.deck[0][i] = silver;
+	}
 
 	// set test game state
 	memcpy(&testG, &G, sizeof(struct gameState));
 
+	cardEffect(adventurer, 0, 0, 0, &testG, 0, NULL);
 
+	sprintf(buffer, "deck count = %d, expected = %d", testG.deckCount[0], G.deckCount[0] - 2);
+	failures += safeAssert(testG.deckCount[0] == G.deckCount[0] - 2, indent, buffer);
+
+	sprintf(buffer, "discard count = %d, expected = %d", testG.discardCount[0], G.discardCount[0]);
+	failures += safeAssert(testG.discardCount[0] == G.discardCount[0], indent, buffer);
+
+	sprintf(buffer, "hand count = %d, expected = %d", testG.handCount[0], G.handCount[0] + 2);
+	failures += safeAssert(testG.handCount[0] == G.handCount[0] + 2, indent, buffer);
 
     testTail(name, "| |", failures);
     if (failures) t_failures++;
 
     /* -------------------- TEST 3 --------------------*/
 	strcpy(name,"Test 3");
-    failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
+	failures = 0;
+    printf("|--> %s: %s\n", name, "Check that card works when deck is full of gold.");
     sprintf(indent, "| |-->");
+
+	// set the deck to a known state
+	for (i = 0; i < G.deckCount[0]; i++) {
+		G.deck[0][i] = gold;
+	}
 
 	// set test game state
 	memcpy(&testG, &G, sizeof(struct gameState));
 
+	cardEffect(adventurer, 0, 0, 0, &testG, 0, NULL);
 
+	sprintf(buffer, "deck count = %d, expected = %d", testG.deckCount[0], G.deckCount[0] - 2);
+	failures += safeAssert(testG.deckCount[0] == G.deckCount[0] - 2, indent, buffer);
 
+	sprintf(buffer, "discard count = %d, expected = %d", testG.discardCount[0], G.discardCount[0]);
+	failures += safeAssert(testG.discardCount[0] == G.discardCount[0], indent, buffer);
+
+	sprintf(buffer, "hand count = %d, expected = %d", testG.handCount[0], G.handCount[0] + 2);
+	failures += safeAssert(testG.handCount[0] == G.handCount[0] + 2, indent, buffer);
+
+    testTail(name, "| |", failures);
+    if (failures) t_failures++;
+
+    /* -------------------- TEST 4 --------------------*/
+	strcpy(name,"Test 4");
+    failures = 0;
+    printf("|--> %s: %s\n", name, "Check if it can find treasure in the discard pile");
+    sprintf(indent, "| |-->");
+
+	G.discardCount[0] = 2;
+	G.discard[0][0] = silver;
+	G.discard[0][1] = gold;
+
+	// set test game state
+	memcpy(&testG, &G, sizeof(struct gameState));
+
+	cardEffect(adventurer, 0, 0, 0, &testG, 0, NULL);
+
+	sprintf(buffer, "deck count = %d, expected = %d", testG.deckCount[0], G.deckCount[0] + G.discardCount[0] - testG.discardCount[0] - 2);
+	failures += safeAssert(testG.deckCount[0] == G.deckCount[0] + G.discardCount[0] - testG.discardCount[0] - 2, indent, buffer);
+
+	sprintf(buffer, "hand count = %d, expected = %d", testG.handCount[0], G.handCount[0] + 2);
+	failures += safeAssert(testG.handCount[0] == G.handCount[0] + 2, indent, buffer);
+
+    testTail(name, "| |", failures);
+    if (failures) t_failures++;
+
+    /* -------------------- TEST 5 --------------------*/
+	strcpy(name,"Test 5");
+    failures = 0;
+    printf("|--> %s: %s\n", name, "Check if it fails if there is no treasure.");
+    sprintf(indent, "| |-->");
+
+	// set the deck to a known state
+	for (i = 0; i < G.deckCount[0]; i++) {
+		G.deck[0][i] = estate;
+	}
+	G.discardCount[0] = 0;
+
+	// set test game state
+	memcpy(&testG, &G, sizeof(struct gameState));
+
+	result = cardEffect(adventurer, 0, 0, 0, &testG, 0, NULL);
+
+	sprintf(buffer, "result = %d, expected = %d", result, -1);
+	failures += safeAssert(result == -1, indent, buffer);
+
+	sprintf(buffer, "hand count = %d, expected = %d", testG.handCount[0], G.handCount[0]);
+	failures += safeAssert(testG.handCount[0] == G.handCount[0], indent, buffer);
+	
     testTail(name, "| |", failures);
     if (failures) t_failures++;
     
