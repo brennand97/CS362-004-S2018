@@ -29,55 +29,115 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
-unittest1: tests/unittest1.c dominion.o rngs.o
-	gcc -o tests/unittest1 tests/unittest1.c dominion.o rngs.o $(CFLAGS)
+unittest1: unittest1.c dominion.o rngs.o
+	gcc -o unittest1 unittest1.c dominion.o rngs.o $(CFLAGS)
 
-unittest2: tests/unittest2.c dominion.o rngs.o
-	gcc -o tests/unittest2 tests/unittest2.c dominion.o rngs.o $(CFLAGS)
+unittest2: unittest2.c dominion.o rngs.o
+	gcc -o unittest2 unittest2.c dominion.o rngs.o $(CFLAGS)
 
-unittest3: tests/unittest3.c dominion.o rngs.o
-	gcc -o tests/unittest3 tests/unittest3.c dominion.o rngs.o $(CFLAGS)
+unittest3: unittest3.c dominion.o rngs.o
+	gcc -o unittest3 unittest3.c dominion.o rngs.o $(CFLAGS)
 
-unittest4: tests/unittest4.c dominion.o rngs.o
-	gcc -o tests/unittest4 tests/unittest4.c dominion.o rngs.o $(CFLAGS)
+unittest4: unittest4.c dominion.o rngs.o
+	gcc -o unittest4 unittest4.c dominion.o rngs.o $(CFLAGS)
 
-unittest5: tests/unittest5.c dominion.o rngs.o
-	gcc -o tests/unittest5 tests/unittest5.c dominion.o rngs.o $(CFLAGS)
+unittest5: unittest5.c dominion.o rngs.o
+	gcc -o unittest5 unittest5.c dominion.o rngs.o $(CFLAGS)
 
-unittestresults.out: tests/unittest1.c tests/unittest2.c tests/unittest3.c dominion.o rngs.o
+cardtest1: cardtest1.c dominion.o rngs.o
+	gcc -o cardtest1 cardtest1.c dominion.o rngs.o $(CFLAGS)
+
+cardtest2: cardtest2.c dominion.o rngs.o
+	gcc -o cardtest2 cardtest2.c dominion.o rngs.o $(CFLAGS)
+
+cardtest3: cardtest3.c dominion.o rngs.o
+	gcc -o cardtest3 cardtest3.c dominion.o rngs.o $(CFLAGS)
+
+cardtest4: cardtest4.c dominion.o rngs.o
+	gcc -o cardtest4 cardtest4.c dominion.o rngs.o $(CFLAGS)
+
+unittestresults.out: unittest1 unittest2 unittest3 unittest4 unittest5 cardtest1 cardtest2 cardtest3 cardtest4 dominion.o rngs.o
 	echo "Result for running Unit Tests:" > unittestresults.out	
+	
 	echo "" >> unittestresults.out
-	gcc -o tests/unittest1 tests/unittest1.c dominion.o rngs.o $(CFLAGS)
-	tests/unittest1 >> unittestresults.out
+	unittest1 >> unittestresults.out
 	gcov dominion.c -b >> unittestresults.out
 
-	echo "" >> unittestresults.out
-	gcc -o tests/unittest2 tests/unittest2.c dominion.o rngs.o $(CFLAGS)	
-	tests/unittest2 >> unittestresults.out
+	echo "" >> unittestresults.out	
+	rm -f dominion.gcda
+	unittest2 >> unittestresults.out
 	gcov dominion.c -b >> unittestresults.out
 
-	echo "" >> unittestresults.out
-	gcc -o tests/unittest3 tests/unittest3.c dominion.o rngs.o $(CFLAGS)	
-	tests/unittest3 >> unittestresults.out
+	echo "" >> unittestresults.out	
+	rm -f dominion.gcda
+	unittest3 >> unittestresults.out
 	gcov dominion.c -b >> unittestresults.out
 
-	echo "" >> unittestresults.out
-	gcc -o tests/unittest4 tests/unittest4.c dominion.o rngs.o $(CFLAGS)	
-	tests/unittest4 >> unittestresults.out
+	echo "" >> unittestresults.out	
+	rm -f dominion.gcda
+	unittest4 >> unittestresults.out
 	gcov dominion.c -b >> unittestresults.out
 	
 	echo "" >> unittestresults.out
-	gcc -o tests/unittest5 tests/unittest5.c dominion.o rngs.o $(CFLAGS)	
-	tests/unittest5 >> unittestresults.out
+	rm -f dominion.gcda
+	unittest5 >> unittestresults.out
 	gcov dominion.c -b >> unittestresults.out
 
 	echo "" >> unittestresults.out
-	echo "Total Coverage of all Tests:" >> unittestresults.out
-	tests/unittest1 > /dev/null
-	tests/unittest2 > /dev/null
-	tests/unittest3 > /dev/null
-	tests/unittest4 > /dev/null
-	tests/unittest5 > /dev/null
+	echo "Total unit test coverage:" >> unittestresults.out
+	rm -f dominion.gcda
+	unittest1 >> /dev/null
+	unittest2 >> /dev/null
+	unittest3 >> /dev/null
+	unittest4 >> /dev/null
+	unittest5 >> /dev/null
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	echo "" >> unittestresults.out
+	echo "Results for running Card Tests:" >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	rm -f dominion.gcda
+	cardtest1 >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	rm -f dominion.gcda
+	cardtest2 >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	rm -f dominion.gcda
+	cardtest3 >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	rm -f dominion.gcda
+	cardtest4 >> unittestresults.out
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	echo "Total card test coverage:" >> unittestresults.out
+	rm -f dominion.gcda
+	cardtest1 >> /dev/null
+	cardtest2 >> /dev/null
+	cardtest3 >> /dev/null
+	cardtest4 >> /dev/null
+	gcov dominion.c -b >> unittestresults.out
+
+	echo "" >> unittestresults.out
+	echo "Total unit and card test coverage:" >> unittestresults.out
+	rm -f dominion.gcda
+	unittest1 >> /dev/null
+	unittest2 >> /dev/null
+	unittest3 >> /dev/null
+	unittest4 >> /dev/null
+	unittest5 >> /dev/null
+	cardtest1 >> /dev/null
+	cardtest2 >> /dev/null
+	cardtest3 >> /dev/null
+	cardtest4 >> /dev/null
 	gcov dominion.c -b >> unittestresults.out
 
 player: player.c interface.o
@@ -86,4 +146,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe tests/unittest1 tests/unittest2 tests/unittest3 tests/unittest4 tests/unittest5 unittestresults.out
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest1 unittest2 unittest3 unittest4 unittest5 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out

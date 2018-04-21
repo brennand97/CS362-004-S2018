@@ -6,11 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../dominion.h"
-#include "../dominion_helpers.h"
-#include "../rngs.h"
-
-#include "unittest1.h"
+#include "dominion.h"
+#include "dominion_helpers.h"
+#include "rngs.h"
 
 #define TESTFUNCTION "endTurn"
 #define NOISY 1

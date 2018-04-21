@@ -1,14 +1,14 @@
 /*
- * unittest3.c
+ * unittest5.c
  */
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../dominion.h"
-#include "../dominion_helpers.h"
-#include "../rngs.h"
+#include "dominion.h"
+#include "dominion_helpers.h"
+#include "rngs.h"
 
 #define TESTFUNCTION "buyCard"
 #define NOISY 1

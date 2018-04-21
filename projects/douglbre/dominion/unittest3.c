@@ -6,9 +6,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../dominion.h"
-#include "../dominion_helpers.h"
-#include "../rngs.h"
+#include "dominion.h"
+#include "dominion_helpers.h"
+#include "rngs.h"
 
 #define TESTFUNCTION "updateCoins"
 #define NOISY 1

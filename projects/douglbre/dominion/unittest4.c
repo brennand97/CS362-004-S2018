@@ -1,14 +1,14 @@
 /*
- * unittest3.c
+ * unittest4.c
  */
 
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "../dominion.h"
-#include "../dominion_helpers.h"
-#include "../rngs.h"
+#include "dominion.h"
+#include "dominion_helpers.h"
+#include "rngs.h"
 
 #define TESTFUNCTION "fullDeckCount"
 #define NOISY 1
