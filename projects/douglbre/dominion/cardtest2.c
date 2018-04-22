@@ -1,5 +1,5 @@
 /*
- * cardtest1.c
+ * cardtest2.c
  */
 
 #include <string.h>
@@ -10,7 +10,7 @@
 #include "dominion_helpers.h"
 #include "rngs.h"
 
-#define TESTCARD "adventurer"
+#define TESTCARD "smithy"
 #define NOISY 1
 
 int silent = 0;
@@ -44,7 +44,7 @@ void testTail(char* name, char* indent, int failures) {
     printf("|\n");
 }
 
-void testCard_adventurer() {
+void testCard_smithy() {
     int failures = 0, t_failures = 0;
     char buffer[100], indent[20], name[100];
 
@@ -70,13 +70,24 @@ void testCard_adventurer() {
     /* -------------------- TEST 1 --------------------*/
 	strcpy(name,"Test 1");
 	failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
+    printf("|--> %s: %s\n", name, "Check the functionality of the smithy card");
     sprintf(indent, "| |-->");
+
+	G.hand[0][1] = smithy;
 
 	// set test game state
 	memcpy(&testG, &G, sizeof(struct gameState));
 
+	cardEffect(smithy, 0, 0, 0, &testG, 1, NULL);
 
+	sprintf(buffer, "hand count = %d, expected = %d", testG.handCount[0], G.handCount[0] + 2);
+	failures += safeAssert(testG.handCount[0] == G.handCount[0] + 2, indent, buffer);
+
+	sprintf(buffer, "played cards count = %d, expected = %d", testG.playedCardCount, G.playedCardCount + 1);
+	failures += safeAssert(testG.playedCardCount == G.playedCardCount + 1, indent, buffer);
+
+	sprintf(buffer, "played card = %d, expected = %d", testG.playedCards[testG.playedCardCount - 1], smithy);
+	failures += safeAssert(testG.playedCards[testG.playedCardCount - 1] == smithy, indent, buffer);
 
     testTail(name, "| |", failures);
     if (failures) t_failures++;
@@ -120,6 +131,6 @@ void testCard_adventurer() {
 }
 
 int main() {
-    testCard_adventurer();
+    testCard_smithy();
     return 0;
 }
