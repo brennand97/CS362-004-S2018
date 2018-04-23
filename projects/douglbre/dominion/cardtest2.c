@@ -95,31 +95,25 @@ void testCard_smithy() {
     /* -------------------- TEST 2 --------------------*/
 	strcpy(name,"Test 2");
     failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
+    printf("|--> %s: %s\n", name, "Check to make sure smithy only draws up to the amount of cards in the deck");
     sprintf(indent, "| |-->");
+
+	G.deckCount[0] = 2;
 
 	// set test game state
 	memcpy(&testG, &G, sizeof(struct gameState));
 
+	cardEffect(smithy, 0, 0, 0, &testG, 1, NULL);
 
+	sprintf(buffer, "hand count = %d, expected = %d", testG.handCount[0], G.handCount[0] + 1);
+	failures += safeAssert(testG.handCount[0] == G.handCount[0] + 1, indent, buffer);
 
-    testTail(name, "| |", failures);
-    if (failures) t_failures++;
-
-    /* -------------------- TEST 3 --------------------*/
-	strcpy(name,"Test 3");
-    failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
-    sprintf(indent, "| |-->");
-
-	// set test game state
-	memcpy(&testG, &G, sizeof(struct gameState));
-
-
+	sprintf(buffer, "played cards count = %d, expected = %d", testG.playedCardCount, G.playedCardCount + 1);
+	failures += safeAssert(testG.playedCardCount == G.playedCardCount + 1, indent, buffer);
 
     testTail(name, "| |", failures);
     if (failures) t_failures++;
-    
+
 	/* -------------- FINISHED ALL TESTS --------------*/
 
     if(!t_failures) {

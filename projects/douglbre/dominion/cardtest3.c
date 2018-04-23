@@ -1,5 +1,5 @@
 /*
- * cardtest1.c
+ * cardtest3.c
  */
 
 #include <string.h>
@@ -10,7 +10,7 @@
 #include "dominion_helpers.h"
 #include "rngs.h"
 
-#define TESTCARD "adventurer"
+#define TESTCARD "great_hall"
 #define NOISY 1
 
 int silent = 0;
@@ -44,7 +44,7 @@ void testTail(char* name, char* indent, int failures) {
     printf("|\n");
 }
 
-void testCard_adventurer() {
+void testCard_greatHall() {
     int failures = 0, t_failures = 0;
     char buffer[100], indent[20], name[100];
 
@@ -70,43 +70,32 @@ void testCard_adventurer() {
     /* -------------------- TEST 1 --------------------*/
 	strcpy(name,"Test 1");
 	failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
+    printf("|--> %s: %s\n", name, "Test functionality of the card effect");
     sprintf(indent, "| |-->");
+
+	G.hand[0][1] = great_hall;
 
 	// set test game state
 	memcpy(&testG, &G, sizeof(struct gameState));
 
+	cardEffect(great_hall, 0, 0, 0, &testG, 1, NULL);
 
+	sprintf(buffer, "hand count = %d, expected = %d", testG.handCount[0], G.handCount[0]);
+	failures += safeAssert(testG.handCount[0] == G.handCount[0], indent, buffer);
 
-    testTail(name, "| |", failures);
-    if (failures) t_failures++;
+	sprintf(buffer, "deck count = %d, expected = %d", testG.deckCount[0], G.deckCount[0] - 1);
+	failures += safeAssert(testG.deckCount[0] == G.deckCount[0] - 1, indent, buffer);
+    
+	sprintf(buffer, "actions = %d, expected = %d", testG.numActions, G.numActions + 1);
+	failures += safeAssert(testG.numActions == G.numActions + 1, indent, buffer);
 
-    /* -------------------- TEST 2 --------------------*/
-	strcpy(name,"Test 2");
-    failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
-    sprintf(indent, "| |-->");
+	sprintf(buffer, "played count = %d, expected = %d", testG.playedCardCount, G.playedCardCount + 1);
+	failures += safeAssert(testG.playedCardCount == G.playedCardCount + 1, indent, buffer);
 
-	// set test game state
-	memcpy(&testG, &G, sizeof(struct gameState));
-
-
-
-    testTail(name, "| |", failures);
-    if (failures) t_failures++;
-
-    /* -------------------- TEST 3 --------------------*/
-	strcpy(name,"Test 3");
-    failures = 0;
-    printf("|--> %s: %s\n", name, "N/A");
-    sprintf(indent, "| |-->");
-
-	// set test game state
-	memcpy(&testG, &G, sizeof(struct gameState));
-
-
-
-    testTail(name, "| |", failures);
+	sprintf(buffer, "played card = %d, expected = %d", testG.playedCards[0], great_hall);
+	failures += safeAssert(testG.playedCards[0] == great_hall, indent, buffer);
+	
+	testTail(name, "| |", failures);
     if (failures) t_failures++;
     
 	/* -------------- FINISHED ALL TESTS --------------*/
@@ -120,6 +109,6 @@ void testCard_adventurer() {
 }
 
 int main() {
-    testCard_adventurer();
+    testCard_greatHall();
     return 0;
 }
