@@ -5,5 +5,11 @@ testme: testme.c
 
 all: testme
 
+run: testme
+	./testme
+
+runfilter: testme
+	./testme | grep error
+
 clean:
 	rm -f *.o *.gcov *.gcda *.gcno testme
