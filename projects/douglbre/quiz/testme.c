@@ -5,14 +5,21 @@
 
 char inputChar()
 {
-    // TODO: rewrite this function
-    return ' ';
+	// return a random printable character
+    return (char) ((rand() % 96) + 32);
 }
 
+char s[6];
 char *inputString()
 {
-    // TODO: rewrite this function
-    return "";
+    // return a random 5 letter lowwer case string with a null terminator
+	int i;
+
+	for (i = 0; i < 5; i++) {
+		s[i] = (char) ((rand() % 26) + 97);
+	}
+	s[5] = '\0';
+	return s;
 }
 
 void testme()
