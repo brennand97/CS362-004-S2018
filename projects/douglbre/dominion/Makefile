@@ -44,7 +44,7 @@ randomtestadventurer.out: randomtestadventurer
 	echo "" >> randomtestadventurer.out
 	echo "Function coverage:" >> randomtestadventurer.out
 	gcov dominion.c
-	tail -n+644 dominion.c.gcov | head -n40 >> randomtestadventurer.out	
+	tail -n+644 dominion.c.gcov | head -n41 >> randomtestadventurer.out	
 
 unittest1: unittest1.c dominion.o rngs.o
 	gcc -o unittest1 unittest1.c dominion.o rngs.o $(CFLAGS)
