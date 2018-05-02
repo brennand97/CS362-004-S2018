@@ -29,6 +29,23 @@ runtests: testDrawCard
 	gcov dominion.c >> unittestresult.out
 	cat dominion.c.gcov >> unittestresult.out
 
+randomtestadventurer: randomtestadventurer.c dominion.o rngs.o
+	gcc -o randomtestadventurer randomtestadventurer.c dominion.o rngs.o $(CFLAGS)
+
+randomtestadventurer.out: randomtestadventurer
+	echo "Result from running randomtestadventurer:" > randomtestadventurer.out
+	randomtestadventurer >> randomtestadventurer.out
+
+	echo "" >> randomtestadventurer.out
+	echo "File coverage:" >> randomtestadventurer.out
+	gcov dominion.c -b >> randomtestadventurer.out
+	rm dominion.c.gcov
+
+	echo "" >> randomtestadventurer.out
+	echo "Function coverage:" >> randomtestadventurer.out
+	gcov dominion.c
+	tail -n+644 dominion.c.gcov | head -n40 >> randomtestadventurer.out	
+
 unittest1: unittest1.c dominion.o rngs.o
 	gcc -o unittest1 unittest1.c dominion.o rngs.o $(CFLAGS)
 
@@ -146,4 +163,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest1 unittest2 unittest3 unittest4 unittest5 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest1 unittest2 unittest3 unittest4 unittest5 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out randomtestadventurer

@@ -651,6 +651,9 @@ int cardEffect_adventurer(struct gameState *state) {
                                                 // to deck
       shuffle(currentPlayer, state);
     }
+	if (state->deckCount[currentPlayer] == 0) {
+		break;
+	}
     drawCard(currentPlayer, state);
     cardDrawn = state->hand[currentPlayer][state->handCount[currentPlayer] -
                                             1]; // top card of hand is most
