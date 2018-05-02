@@ -651,6 +651,7 @@ int cardEffect_adventurer(struct gameState *state) {
                                                 // to deck
       shuffle(currentPlayer, state);
     }
+	// Added this edge case so that the code was testable
 	if (state->deckCount[currentPlayer] == 0) {
 		break;
 	}
