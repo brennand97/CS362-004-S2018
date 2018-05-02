@@ -1,5 +1,5 @@
 /*
- * cardtest1.c
+ * randomtestadventurer.c
  */
 
 #include <string.h>
