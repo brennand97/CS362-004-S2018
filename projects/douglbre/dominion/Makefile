@@ -36,6 +36,7 @@ randomtestadventurer.out: randomtestadventurer
 	echo "Result from running randomtestadventurer:" > randomtestadventurer.out
 	randomtestadventurer >> randomtestadventurer.out
 
+	rm dominion.gcda
 	echo "" >> randomtestadventurer.out
 	echo "File coverage:" >> randomtestadventurer.out
 	gcov dominion.c -b >> randomtestadventurer.out
@@ -45,6 +46,42 @@ randomtestadventurer.out: randomtestadventurer
 	echo "Function coverage:" >> randomtestadventurer.out
 	gcov dominion.c
 	tail -n+644 dominion.c.gcov | head -n41 >> randomtestadventurer.out	
+
+randomtest1: randomtest1.c dominion.o rngs.o
+	gcc -o randomtest1 randomtest1.c dominion.o rngs.o $(CFLAGS)
+
+randomtest1.out: randomtest1
+	echo "Result from running randomtest1:" > randomtest1.out
+	randomtest1 >> randomtest1.out
+
+	rm dominion.gcda
+	echo "" >> randomtest1.out
+	echo "File coverage:" >> randomtest1.out
+	gcov dominion.c -b >> randomtest1.out
+	rm dominion.c.gcov
+
+	echo "" >> randomtest1.out
+	echo "Function coverage:" >> randomtest1.out
+	gcov dominion.c
+	tail -n+812 dominion.c.gcov | head -n15 >> randomtest1.out	
+
+randomtest2: randomtest2.c dominion.o rngs.o
+	gcc -o randomtest2 randomtest2.c dominion.o rngs.o $(CFLAGS)
+
+randomtest2.out: randomtest2
+	echo "Result from running randomtest2:" > randomtest2.out
+	randomtest2 >> randomtest2.out
+
+	rm dominion.gcda
+	echo "" >> randomtest2.out
+	echo "File coverage:" >> randomtest2.out
+	gcov dominion.c -b >> randomtest2.out
+	rm dominion.c.gcov
+
+	echo "" >> randomtest2.out
+	echo "Function coverage:" >> randomtest2.out
+	gcov dominion.c
+	tail -n+812 dominion.c.gcov | head -n15 >> randomtest2.out	
 
 unittest1: unittest1.c dominion.o rngs.o
 	gcc -o unittest1 unittest1.c dominion.o rngs.o $(CFLAGS)
@@ -163,4 +200,4 @@ player: player.c interface.o
 all: playdom player 
 
 clean:
-	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest1 unittest2 unittest3 unittest4 unittest5 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out randomtestadventurer
+	rm -f *.o playdom.exe playdom player player.exe  *.gcov *.gcda *.gcno *.so *.out testDrawCard testDrawCard.exe unittest1 unittest2 unittest3 unittest4 unittest5 cardtest1 cardtest2 cardtest3 cardtest4 unittestresults.out randomtestadventurer randomtest1 randomtest2
