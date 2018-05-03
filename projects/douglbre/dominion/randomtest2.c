@@ -46,11 +46,16 @@ int check_feast(struct gameState *G, int choice) {
 	// run the state through the function
 	cardEffect_feast(choice, &testG);
 
-	// the supply count should be one lower
-	failures += safeAssert(supplyCount(choice, G) == supplyCount(choice, &testG) + 1);
+	// determine if a card should have been picked up
+	j = G->supplyCount[choice] < 1 || getCost(choice) > 5 ? 0 : 1;
 
-	// the deck should have an extra card
-	failures += safeAssert(G->deckCount[p] == testG.deckCount[p] - 1);
+	// the supply count should be one lower
+	failures += safeAssert(G->supplyCount[choice] == testG.supplyCount[choice] + j);
+
+	// the discard should have an extra card
+	failures += safeAssert(G->discardCount[p] == testG.discardCount[p] - j);
+
+	//printf("G.sc: %d, tG.sc: %d, G.dc: %d, tG.dc: %d, cost: %d, j: %d\n", G->supplyCount[choice], testG.supplyCount[choice], G->deckCount[choice], testG.deckCount[choice], getCost(choice), j);
 
 	return failures;
 }
@@ -88,15 +93,19 @@ int main() {
 		p = floor(Random() * G.numPlayers);
 		G.whoseTurn = p;
 
-		// Set the deck counts to one half the max_deck
+		// Set the deck counts to one quarter the max_deck
 		// as at any one time all the cards could potentially
 		// be in one deck and therfore the total number of
 		// cards needs to be less than the MAX_DECK constraint.
-		G.deckCount[p] = floor(Random() * (MAX_DECK / 2));
-		G.handCount[p] = floor(Random() * (MAX_DECK / 2));
+		G.deckCount[p] = floor(Random() * (MAX_DECK / 4));
+		G.discardCount[p] = floor(Random() * (MAX_DECK / 4));
+		G.playedCardCount = floor(Random() * (MAX_DECK / 4));
+		G.handCount[p] = floor(Random() * (MAX_DECK / 4));
 
 		// Set a random supply postion that is valid as the choice
 		choice = floor(Random() * (treasure_map + 1));
+
+		
 
 		// Check to see if the random gameState passes
 		// the check.

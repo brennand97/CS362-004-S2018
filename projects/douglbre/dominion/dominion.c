@@ -731,12 +731,14 @@ int cardEffect_feast(int choice, struct gameState *state) {
       if (DEBUG) {
         printf("Cards Left: %d\n", supplyCount(choice, state));
       }
+	  x=0; // BUGFIX
     } else if (state->coins < getCost(choice)) {
       printf("That card is too expensive!\n");
 
       if (DEBUG) {
         printf("Coins: %d < %d\n", state->coins, getCost(choice));
       }
+	  x=0; //BUGFIX
     } else {
 
       if (DEBUG) {
