@@ -74,7 +74,7 @@ int main() {
 	int result;
 
 	int N;
-    int seed = 1111;
+    int seed = 1112;
     struct gameState G;
     int k[10] = {adventurer, embargo, village, minion, mine, cutpurse,
 	             sea_hag, tribute, smithy, council_room};
@@ -83,7 +83,7 @@ int main() {
 	SelectStream(2);
 	PutSeed(seed);
 
-	N = 10000;
+	N = 5000;
 
 	for (m = 0; m < N; m++) {
 

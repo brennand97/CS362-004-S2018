@@ -44,7 +44,7 @@ int check_smithy(struct gameState *G, int handPos) {
 	memcpy(&testG, G, sizeof(struct gameState));
 
 	// run the state through the function
-	smithyEffect(&testG, handPos);
+	smithyEffect(handPos, &testG);
 
 	// find the difference in hand counts
 	diff = testG.handCount[p] - G->handCount[p];
@@ -83,7 +83,7 @@ int main() {
 	SelectStream(2);
 	PutSeed(seed);
 
-	N = 10000;
+	N = 5000;
 
 	for (m = 0; m < N; m++) {
 

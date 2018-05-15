@@ -76,7 +76,7 @@ int main() {
 	SelectStream(2);
 	PutSeed(seed);
 
-	N = 10000;
+	N = 5000;
 
 	for (m = 0; m < N; m++) {
 
