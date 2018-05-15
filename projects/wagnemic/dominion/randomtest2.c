@@ -44,7 +44,7 @@ int check_feast(struct gameState *G, int choice) {
 	memcpy(&testG, G, sizeof(struct gameState));
 
 	// run the state through the function
-	cardEffect_feast(choice, &testG);
+	cardEffect(0, choice, 0, 0, &testG, 0, 0);
 
 	// determine if a card should have been picked up
 	j = G->supplyCount[choice] < 1 || getCost(choice) > 5 ? 0 : 1;

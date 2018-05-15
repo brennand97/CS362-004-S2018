@@ -44,7 +44,7 @@ int check_adventurer(struct gameState *G) {
 	memcpy(&testG, G, sizeof(struct gameState));
 
 	// run the state through the function
-	cardEffect_adventurer(&testG);
+	adventurerEffect(&testG);
 
 	// find the difference in hand counts
 	diff = testG.handCount[p] - G->handCount[p];
