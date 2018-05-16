@@ -652,7 +652,7 @@ int smithyEffect(int smithyHandPos, struct gameState *state)
     int currentPlayer = whoseTurn(state);
     
     //+3 Cards
-    for (i = 0; i <= 3; i++) { // (BUG: the conditional check should be < not <=)
+    for (i = 0; i < 3; i++) {
         drawCard(currentPlayer, state);
 	}
 			
@@ -690,7 +690,7 @@ int adventurerEffect(struct gameState *state)
         }
     }
     
-    while(z-1>=0) { // (BUG: there should be post-increment operator, ++, to increment state->discardCount[currentPlayer])
+    while(z-1>=0) { 
         state->discard[currentPlayer][state->discardCount[currentPlayer]]=temphand[z-1]; // discard all cards in play that have been drawn
         z=z-1;
     }
