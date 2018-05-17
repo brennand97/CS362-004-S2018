@@ -117,7 +117,7 @@ public class RegexValidator implements Serializable {
      * sensitive</i>, otherwise matching is <i>case in-sensitive</i>
      */
     public RegexValidator(String[] regexs, boolean caseSensitive) {
-        if (regexs != null || regexs.length == 0) {
+        if (regexs == null || regexs.length == 0) {
             throw new IllegalArgumentException("Regular expressions are missing");
         }
         patterns = new Pattern[regexs.length];

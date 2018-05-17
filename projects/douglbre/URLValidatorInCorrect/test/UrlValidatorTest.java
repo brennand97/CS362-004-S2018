@@ -7,9 +7,6 @@ import junit.framework.TestCase;
 // Again, it is up to you to use this file or not!
 
 
-
-
-
 public class UrlValidatorTest extends TestCase {
 
 
@@ -21,8 +18,42 @@ public class UrlValidatorTest extends TestCase {
    
    public void testManualTest()
    {
-//You can use this function to implement your manual testing	   
+	   //You can use this function to implement your manual testing	   
+	   UrlValidator urlVal = new UrlValidator(UrlValidator.ALLOW_ALL_SCHEMES);
 	   
+	   String[] trueList = {
+			   "http://www.google.com",
+			   "http://www.google.com/",
+			   "FTP://www.google.com",
+			   "h3t://www.google.com",
+			   "http://anything.org",
+			   "http://anything.net",
+			   "https://www.google.com",
+	   };
+	   
+	   String[] falseList = {
+			   "http://www.google.com//",
+			   "3ht://www.google.com",
+			   "aaa://blahblah.net",
+	   };
+	   
+	   for(int i = 0; i < trueList.length; i++) {
+		   boolean result = urlVal.isValid(trueList[i]);
+		   System.out.println(result + ": " + trueList[i]);
+	   }
+	   
+	   for(int i = 0; i < falseList.length; i++) {
+		   boolean result = urlVal.isValid(falseList[i]);
+		   System.out.println(!result + ": " + falseList[i]);
+	   }
+	   
+	   for(int i = 0; i < trueList.length; i++) {
+		   assertTrue(urlVal.isValid(trueList[i]));
+	   }
+	   
+	   for(int i = 0; i < falseList.length; i++) {
+		   assertFalse(urlVal.isValid(falseList[i]));
+	   }
    }
    
    
