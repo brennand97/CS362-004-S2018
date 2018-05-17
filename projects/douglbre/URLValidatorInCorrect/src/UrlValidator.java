@@ -390,9 +390,9 @@ public class UrlValidator implements Serializable {
             return true;
         }
         // convert to ASCII if possible
-        //final String authorityASCII = DomainValidator.unicodeToASCII(authority);
+        final String authorityASCII = DomainValidator.unicodeToASCII(authority);
 
-        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authority);
+        Matcher authorityMatcher = AUTHORITY_PATTERN.matcher(authorityASCII);
         if (!authorityMatcher.matches()) {
             return false;
         }
