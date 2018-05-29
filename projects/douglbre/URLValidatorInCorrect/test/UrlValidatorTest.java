@@ -338,9 +338,6 @@ UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEME
 					   
 					   StringBuilder builder = new StringBuilder();
 					   boolean truth = true;
-					   if (a == 7) {
-						   System.out.println("true");
-					   }
 					   
 					   builder.append(schemes[a]);
 					   truth &= schemesTrue[a];
