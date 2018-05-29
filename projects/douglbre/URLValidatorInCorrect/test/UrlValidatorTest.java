@@ -49,6 +49,8 @@ public class UrlValidatorTest extends TestCase {
 	   // Bug #6 Found (fix this and then run the program again)
 	   //		Failure: junit throws AssertionFailedError
 	   //	    Fix: change “http” to “file” on line 318 of UrlValidator.java
+	   assertTrue(urlVal.isValid("file:///anything/may/go/here/"));
+	   assertTrue(urlVal.isValid("file:///home/user/my/file/path/file.txt"));
 	   
 	   // Manual tests for using custom schemes
 	   String customSchemes[] = {"abc","123"};
@@ -250,6 +252,117 @@ public class UrlValidatorTest extends TestCase {
    {
 	   //You can use this function for programming based testing
 
+UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEMES);
+	   
+	   String[] schemes = {
+			   "http://",
+			   "https://",
+			   "htt:p//",
+			   "ftp://",
+			   "123://",
+			   "://",
+			   "//:"
+	   };
+	   
+	   boolean[] schemesTrue = {
+			   true,
+			   true,
+			   false,
+			   true,
+			   false,
+			   false,
+			   false
+	   };
+	   
+	   String[] addresses = {
+			   "www.google.com",
+			   "google.com",
+			   "asldkjf.com",
+			   "laskdfj&*asdf.org",
+			   "127.0.0.1",
+			   "0.0.0.0",
+			   "192.168.0255.0"
+	   };
+	   
+	   boolean[] addressesTrue = {
+			   true,
+			   true,
+			   true,
+			   false,
+			   true,
+			   true,
+			   false
+	   };
+	   
+	   String[] ports = {
+			   "",
+			   ":80",
+			   ":9090:",
+			   ":80_90",
+			   ":abc"
+	   };
+	   
+	   boolean[] portsTrue = {
+			   true,
+			   true,
+			   false,
+			   false,
+			   false
+	   };
+	   
+	   String[] paths = {
+			   "",
+			   "/test",
+			   "/no space",
+			   "/anything?options=true",
+			   "/",
+			   "/this/is/a/file.txt",
+			   "/not//allowed"
+	   };
+	   
+	   boolean[] pathsTrue = {
+			   true,
+			   true,
+			   false,
+			   true,
+			   true,
+			   true,
+			   false
+	   };
+	   
+	   
+	   for(int a = 0; a < schemes.length; a++) {
+		   for(int b = 0; b < addresses.length; b++) {
+			   for(int c = 0; c < ports.length; c++) {
+				   for(int d = 0; d < paths.length; d++) {
+					   
+					   StringBuilder builder = new StringBuilder();
+					   boolean truth = true;
+					   if (a == 7) {
+						   System.out.println("true");
+					   }
+					   
+					   builder.append(schemes[a]);
+					   truth &= schemesTrue[a];
+					   
+					   builder.append(addresses[b]);
+					   truth &= addressesTrue[b];
+					   
+					   builder.append(ports[c]);
+					   truth &= portsTrue[c];
+					   
+					   builder.append(paths[d]);
+					   truth &= pathsTrue[d];
+					   
+					   String url = builder.toString();
+					   System.out.println("(" + truth + ") " + url);
+					   
+					   assertTrue(urlVal.isValid(url) == truth);
+				   }
+			   }
+		   }
+	   }
+	   
    }
    
 
