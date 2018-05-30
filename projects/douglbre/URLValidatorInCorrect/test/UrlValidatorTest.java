@@ -31,26 +31,28 @@ public class UrlValidatorTest extends TestCase {
 	   assertTrue(urlVal.isValid("ftp://www.google.com")); 
 	   // Bug #1 Found (fix this and then run the program again)
 	   //		Failure: java throws ExceptionIninitializerError
-	   //	    Fix: change ìregexs != nullî to ìregexs == nullî on line 120 of RegexValidator.java
+	   //	    Fix: change ‚Äúregexs != null‚Äù to ‚Äúregexs == null‚Äù on line 120 of RegexValidator.java
 	   // Bug #2 Found (fix this and then run the program again)
 	   //		Failure: java throws NullPointerException
-	   //	    Fix: change ìregexs.length-1î to ìregexs.lengthî on line 125 of RegexValidator.java
+	   //	    Fix: change ‚Äúregexs.length-1‚Äù to ‚Äúregexs.length‚Äù on line 125 of RegexValidator.java
 	   // Bug #3 Found (fix this and then run the program again)
 	   //		Failure: java throws NullPointerException
-	   //	    Fix: change ìreturn nullî to ìreturn VALIDATORî on line 68 of InetAddressValidator.java
+	   //	    Fix: change ‚Äúreturn null‚Äù to ‚Äúreturn VALIDATOR‚Äù on line 68 of InetAddressValidator.java
 	   // Bug #4 Found (fix this and then run the program again)
 	   //		Failure: java throws NullPointerException
-	   //	    Fix: change ìgroups != nullî to ìgroups == nullî on line 88 of InetAddressValidator.java
+	   //	    Fix: change ‚Äúgroups != null‚Äù to ‚Äúgroups == null‚Äù on line 88 of InetAddressValidator.java
 	   // Bug #5 Found (fix this and then run the program again)
 	   //		Failure: junit throws AssertionFailedError
-	   //	    Fix: change ì!isValidTld(groups[0])î to ìisValidTld(groups[0])î on line 166 of DomainValidator.java
+	   //	    Fix: change ‚Äú!isValidTld(groups[0])‚Äù to ‚ÄúisValidTld(groups[0])‚Äù on line 166 of DomainValidator.java
 	   
 	   assertTrue(urlVal.isValid("file:")); 
 	   // Bug #6 Found (fix this and then run the program again)
 	   //		Failure: junit throws AssertionFailedError
-	   //	    Fix: change ìhttpî to ìfileî on line 318 of UrlValidator.java
+	   //	    Fix: change ‚Äúhttp‚Äù to ‚Äúfile‚Äù on line 318 of UrlValidator.java
 	   assertTrue(urlVal.isValid("file:///anything/may/go/here/"));
+	   // Pass
 	   assertTrue(urlVal.isValid("file:///home/user/my/file/path/file.txt"));
+	   // Pass
 	   
 	   // Manual tests for using custom schemes
 	   String customSchemes[] = {"abc","123"};
@@ -62,7 +64,7 @@ public class UrlValidatorTest extends TestCase {
 	   assertTrue(urlValCustomSchemes.isValid("abc://www.google.com"));
 	   // Bug #7 Found (fix this and then run the program again)
 	   //		Failure: junit throws AssertionFailedError
-	   //	    Fix: change ìtoUpperCaseî to ìtoLowerCaseî on line 282 of UrlValidator.java
+	   //	    Fix: change ‚ÄútoUpperCase‚Äù to ‚ÄútoLowerCase‚Äù on line 282 of UrlValidator.java
 	   
 	   assertFalse(urlValCustomSchemes.isValid("123://www.google.com")); 
 	   // Pass
@@ -92,7 +94,7 @@ public class UrlValidatorTest extends TestCase {
 	   assertFalse(urlVal.isValid("ftp://256.256.256.256"));
 	   // Bug #8 Found (fix this and then run the program again)
 	   //		Failure: junit throws AssertionFailedError
-	   //		Fix: change ìreturn trueî to ìreturn falseî on line 107 of InetAddressValidator.java
+	   //		Fix: change ‚Äúreturn true‚Äù to ‚Äúreturn false‚Äù on line 107 of InetAddressValidator.java
 
 	   // Special cases to test for IPv4 addresses
 
@@ -150,7 +152,7 @@ public class UrlValidatorTest extends TestCase {
 	   assertTrue(urlVal.isValid("ftp://www.google.com/~"));
 	   // Bug #9 (first portion) Found (fix this and then run the program again)
 	   //		Failure: junit throws AssertionFailedError
-	   //		Fix: change ì^(/[-\\w:@&?=+,.!*'%$_;\\(\\)]*)?$î to ì^(/[-\\w:@&?=+,.!*'%$_;\\(\\)~]*)?$î on line 167 of UrlValidator.java
+	   //		Fix: change ‚Äú^(/[-\\w:@&?=+,.!*'%$_;\\(\\)]*)?$‚Äù to ‚Äú^(/[-\\w:@&?=+,.!*'%$_;\\(\\)~]*)?$‚Äù on line 167 of UrlValidator.java
 
 	   assertTrue(urlVal.isValid("ftp://www.google.com/!"));
 	   // Pass
@@ -239,7 +241,7 @@ public class UrlValidatorTest extends TestCase {
 	   assertTrue(urlVal.isValid("ftp://www.google.com/a/")); // separator character needed between the two slashes because we are not using the ALLOW_2_SLASHES option
 	   // Bug #9 (second portion) Found (fix this and then run the program again)
 	   //		Failure: junit throws AssertionFailedError
-	   //		Fix: change ì^(/[-\\w:@&?=+,.!*'%$_;\\(\\)~]*)?$î to ì^(/[-\\w:@&?=+,.!*'%$_;\\(\\)~/]*)?$î on line 167 of UrlValidator.java
+	   //		Fix: change ‚Äú^(/[-\\w:@&?=+,.!*'%$_;\\(\\)~]*)?$‚Äù to ‚Äú^(/[-\\w:@&?=+,.!*'%$_;\\(\\)~/]*)?$‚Äù on line 167 of UrlValidator.java
 
 	   assertTrue(urlVal.isValid("ftp://www.google.com/?"));
 	   // Pass
@@ -352,9 +354,14 @@ UrlValidator urlVal = new UrlValidator(null, null, UrlValidator.ALLOW_ALL_SCHEME
 					   truth &= pathsTrue[d];
 					   
 					   String url = builder.toString();
-					   System.out.println("(" + truth + ") " + url);
 					   
-					   assertTrue(urlVal.isValid(url) == truth);
+					   try {
+						   assertTrue(urlVal.isValid(url) == truth);
+					   } catch (junit.framework.AssertionFailedError e) { // for junit assertion failures (isValid returned the wrong boolean)
+						   System.out.println("FAIL: \"" + url + "\" was found to be " + (!truth ? "" : "in") + "valid by isValid but it was expected to be " + (truth ? "" : "in") + "valid");
+					   } catch ( Exception e) { // for any java exception (some exception was thrown by the isValid function)
+						   System.out.println("FAIL: \"" + url + "\" threw the exception " + e.toString());
+				   	   }
 				   }
 			   }
 		   }
