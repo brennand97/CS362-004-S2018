@@ -49,9 +49,7 @@ public class UrlValidatorTest extends TestCase {
 	   // Bug #6 Found (fix this and then run the program again)
 	   //		Failure: junit throws AssertionFailedError
 	   //	    Fix: change “http” to “file” on line 318 of UrlValidator.java
-	   assertTrue(urlVal.isValid("file:///anything/may/go/here/"));
-	   // Pass
-	   assertTrue(urlVal.isValid("file:///home/user/my/file/path/file.txt"));
+	   assertTrue(urlVal.isValid("file:/myFile"));
 	   // Pass
 	   
 	   // Manual tests for using custom schemes
